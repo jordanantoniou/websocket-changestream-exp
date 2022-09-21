@@ -12,8 +12,6 @@ const connectToDatabase = () => {
 
     try {
 
-        console.log(process.env.MONGODB_URL);
-
         mongoose.connect(process.env.MONGODB_URL, connectionParams);
 
         console.log('Database connected successfully');
@@ -33,4 +31,8 @@ const configureChangeStreamHandlers = (io) => {
     });
 }
 
-export { connectToDatabase, configureChangeStreamHandlers };
+const findAll = async () => {
+    return Message.find({});
+}
+
+export { connectToDatabase, configureChangeStreamHandlers, findAll };

@@ -1,5 +1,5 @@
 import { Server } from 'socket.io';
-import { configureChangeStreamHandlers } from './mongo.js';
+import { configureChangeStreamHandlers, findAll } from './mongo.js';
 
 const onConnectionHandler = (io) => {
     io.on('connection', async () => {

@@ -1,5 +1,4 @@
 import { io } from 'socket.io-client';
-import { notify } from './toastify.js';
 
 let socket;
 
@@ -15,6 +14,6 @@ export const disconnectSocket = () => {
 
 export const onMessageHandler = () => {
     socket.on('message', (message) => {
-        notify(message);
+        console.log(message);
     });
 };
