@@ -60,23 +60,19 @@ Use your preffered way to add a Mongo document with the following structure to t
 
 ```
 {
-    "type" : "alert",
-    "level" : "high",
-    "room" : "1",
-    "sensor" : "2",
-    "message" : "This is an example message",
+    "room" : "Bed 01",
+    "alert" : "On Floor",
+    "alertTime" : "2022-09-20T14:00:00.000+00:00",
+    "zone" : "Door",
+    "muted" : "0",
 }
 ```
 
 You should now see the message displaying on the React App like so:
 
-![High Level Alert Example](./docs/high-level-alert-example.png)
+![Alerts Example](./docs/alerts-dashboard.png)
 
-You can change the styling of the alert based on the `level` attribute. It currently supports `high`, `medium` and `low`.
-
-This will looks something like so:
-
-![Alerts Example](./docs/alerts-example.png)
+You can change the styling of the alert based on the `alert` attribute. It currently supports `On Floor`, `High Risk` otherwise it will default to no style.
 
 
 
