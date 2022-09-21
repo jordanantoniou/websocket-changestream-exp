@@ -66,7 +66,7 @@ Use your preffered way to add a Mongo document with the following structure to t
     "sensor" : "2",
     "message" : "This is an example message",
 }
-``
+```
 
 You should now see the message displaying on the React App like so:
 
