@@ -30,7 +30,7 @@ const App = () => {
 
     initiateSocketConnection();
 
-    onMessageHandler();
+    onMessageHandler(setMessages);
 
     return () => {
       disconnectSocket();

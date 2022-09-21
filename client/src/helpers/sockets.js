@@ -12,8 +12,8 @@ export const disconnectSocket = () => {
     if (socket) socket.disconnect();
 };
 
-export const onMessageHandler = () => {
+export const onMessageHandler = (setMessages) => {
     socket.on('message', (message) => {
-        console.log(message);
+        setMessages(current => [...current, message]);
     });
 };
