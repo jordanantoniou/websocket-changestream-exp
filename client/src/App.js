@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { disconnectSocket, initiateSocketConnection, onMessageHandler } from './helpers/sockets';
+import { disconnectSocket, initiateSocketConnection, fetchInitialData, onMessageHandler, onMessagesHandler } from './helpers/sockets';
 import './App.css';
 
 const calculateAlertColor = (alert) => {
@@ -15,20 +15,12 @@ const App = () => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    const fetchMessages = async () => {
-      const response = await fetch('http://localhost:8080/messages');
-
-      const messages = await response.json();
-
-      setMessages(messages);
-    };
-
-    fetchMessages();
-  }, []);
-
-  useEffect(() => {
 
     initiateSocketConnection();
+
+    fetchInitialData();
+
+    onMessagesHandler(setMessages);
 
     onMessageHandler(setMessages);
 
@@ -38,15 +30,15 @@ const App = () => {
   }, []);
 
   return (
-    <div class='wrapper'>
-      <div class='header'>
+    <div className='wrapper'>
+      <div className='header'>
         <h1>Alpha Ward Overview</h1>
       </div>
-      <div class='alert-wrapper'>
+      <div className='alert-wrapper'>
         ALERTS({messages.filter(message => message.alert).length})
-        <div class='alerts'>
-          {messages.filter(message => message.alert).map(({ room, alert, alertTime }) =>
-            <div class={` alert ${calculateAlertColor(alert)}`}>
+        <div className='alerts'>
+          {messages.filter(message => message.alert).map(({ _id, room, alert, alertTime }) =>
+            <div key={_id} className={` alert ${calculateAlertColor(alert)}`}>
               <p>
                 {`
                 ${room}
@@ -69,8 +61,8 @@ const App = () => {
           </tr>
         </thead>
         <tbody>
-          {messages.map(({ room, alert, alertTime, zone, muted }) =>
-            <tr key={room} class={calculateAlertColor(alert)}>
+          {messages.map(({ _id, room, alert, alertTime, zone, muted }) =>
+            <tr key={_id} className={calculateAlertColor(alert)}>
               <td>{room}</td>
               <td>{alert}</td>
               <td>{alertTime}</td>

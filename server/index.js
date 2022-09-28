@@ -3,7 +3,7 @@ import http from 'http';
 import cors from 'cors';
 import { Server } from 'socket.io';
 
-import { connectToDatabase, configureChangeStreamHandlers, findAll } from './helpers/mongo.js';
+import { connectToDatabase, configureChangeStreamHandlers } from './helpers/mongo.js';
 import { configureSocketHandlers } from './helpers/sockets.js';
 
 const app = express();
@@ -14,13 +14,6 @@ const io = new Server(server, {
 });
 
 app.use(cors());
-
-app.get('/messages', async (req, res) => {
-
-  const messages = await findAll();
-
-  res.send(messages);
-});
 
 connectToDatabase();
 
