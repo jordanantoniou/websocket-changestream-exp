@@ -1,13 +1,17 @@
 import express from 'express';
 import http from 'http';
 import cors from 'cors';
+import { Server } from 'socket.io';
 
-import { connectToDatabase, findAll } from './helpers/mongo.js';
+import { connectToDatabase, configureChangeStreamHandlers, findAll } from './helpers/mongo.js';
 import { configureSocketHandlers } from './helpers/sockets.js';
 
-// Don't actually need express here as we could use a http server alone however kept in for future potential use.
 const app = express();
 const server = http.createServer(app);
+const io = new Server(server, {
+  cors: '*',
+  methods: ['GET', 'POST']
+});
 
 app.use(cors());
 
@@ -20,7 +24,9 @@ app.get('/messages', async (req, res) => {
 
 connectToDatabase();
 
-configureSocketHandlers(server);
+configureChangeStreamHandlers(io);
+
+configureSocketHandlers(io);
 
 server.listen(8080, async () => {
   console.log('Listening on http://localhost:8080...')

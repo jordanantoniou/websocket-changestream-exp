@@ -1,13 +1,7 @@
-import { Server } from 'socket.io';
-import { configureChangeStreamHandlers, findAll } from './mongo.js';
-
 const onConnectionHandler = (io) => {
     io.on('connection', async () => {
 
         console.log('Client connected...');
-
-        configureChangeStreamHandlers(io);
-
     });
 }
 
@@ -17,11 +11,7 @@ const onDisconnectHandler = (io) => {
     });
 }
 
-const configureSocketHandlers = (server) => {
-    const io = new Server(server, {
-        cors: '*',
-        methods: ['GET', 'POST']
-    });
+const configureSocketHandlers = (io) => {
 
     onConnectionHandler(io);
     onDisconnectHandler(io);
